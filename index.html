@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UAV-MultiAct | Multi-Person UAV Action Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #2563eb;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #111827;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .conference-tag {
+            display: inline-block;
+            background: var(--secondary-blue);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .authors {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-top: 10px;
+        }
+
+        .affiliations {
+            color: #4b5563;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0 15px;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            min-width: 190px;
+            text-align: center;
+            transition: 0.2s ease;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.12);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.disabled {
+            pointer-events: none;
+            opacity: 0.65;
+        }
+
+        .note {
+            text-align: center;
+            font-style: italic;
+            color: #4b5563;
+            margin-bottom: 40px;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        section h2 {
+            margin-top: 0;
+            color: var(--primary-blue);
+            font-size: 26px;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        img.method-img {
+            width: 100%;
+            max-width: 950px;
+            display: block;
+            margin: 25px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 22px;
+            font-size: 14px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background: #dbeafe;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        a {
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #6b7280;
+            border-top: 1px solid #d1d5db;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <h1>
+            UAV-MultiAct: A Lightweight Fusion-based Transformer for Robust Multi-Person Action Recognition in UAV Surveillance
+        </h1>
+
+        <a href="https://khihtc.maju.edu.pk/" target="_blank" style="text-decoration:none;">
+            <div class="conference-tag">KHIHTC 2026</div>
+        </a>
+
+        <div class="authors">
+            Harris Shahid<sup>1</sup>, Shaheryar Najam<sup>2</sup>, Ahmad Jalal<sup>3</sup>
+        </div>
+
+        <div class="affiliations">
+            <sup>1</sup> HITEC Institute of Medical Sciences ·
+            <sup>2</sup> Bahria University ·
+            <sup>3</sup> Air University
+        </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="button-row">
+
+        <a class="btn disabled">
+            📄 Paper (Coming Soon)
+        </a>
+
+        <a class="btn disabled">
+            🔗 ResearchGate (Coming Soon)
+        </a>
+
+        <a class="btn disabled">
+            💻 Code
+        </a>
+
+        <a class="btn" href="https://asankagp.github.io/mod20/" target="_blank">
+            📂 Dataset 1
+        </a>
+
+        <a class="btn" href="https://github.com/TeCSAR-UNCC/CHAD" target="_blank">
+            📂 Dataset 2
+        </a>
+
+        <a class="btn" href="#citation">
+            📑 Citation
+        </a>
+
+    </div>
+
+    <div class="note">
+        Note: Additional resources and supplementary materials will be added after publication.
+    </div>
+
+    <!-- ABSTRACT -->
+    <section>
+
+        <h2>Abstract</h2>
+
+        <p>
+            Human action recognition is a core requirement for intelligent surveillance, yet fixed ground-based cameras suffer from limited viewpoints, occlusions, and poor adaptability to large-scale outdoor environments, while aerial UAV-based recognition remains challenging due to small target sizes, oblique views, and complex multi-person interactions. To address these challenges using practical RGB-only sensing, we propose a unified multi-cue framework for multi-person action recognition in UAV surveillance videos that integrates silhouette extraction, ridge and distance transform-based structural cues, SuperPoint–LightGlue keypoint matching for robust correspondence, pose estimation for articulated motion modeling, and tracking-any-point for temporal consistency. The heterogeneous features are fused into a joint representation and modeled using a transformer-based classifier to capture long-range temporal dependencies and interaction dynamics. Experiments conducted on two public UAV datasets demonstrate the effectiveness of the proposed approach, achieving 88.90% accuracy on MOD20 and 88.78% on CHAD, outperforming several recent methods and confirming the robustness of the framework for aerial multi-person action understanding.
+        </p>
+
+    </section>
+
+    <!-- METHOD -->
+    <section>
+
+        <h2>Method</h2>
+
+        <img src="Figures-Block Diagram.drawio.png" alt="UAV-MultiAct Framework" class="method-img">
+
+        <p>
+            The proposed framework provides an end-to-end pipeline, as shown in Fig., for human action recognition in challenging UAV-based multi-person scenarios by utilizing complementary visual and motion cues. The framework begins with preprocessing steps, including the redundant frames removal, spatial resizing, and intensity normalization. From each preprocessed image, human silhouettes are extracted, followed by ridge detection and distance transform. Concurrently, visual features are learned using SuperPoint and LightGlue for precise feature matching under viewpoint transformations. Human pose estimation is employed to encode body motion, and a Tracking Any Point system is used for temporal keypoint alignment. Finally, all the extracted information is aggregated into a unified feature and passed to a transformer to encode multi-person action recognition.
+        </p>
+
+    </section>
+
+    <!-- RESULTS -->
+    <section>
+
+        <h2>Results</h2>
+
+        <h3>1. Performance Evaluation Metrics</h3>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Dataset</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+            </tr>
+
+            <tr>
+                <td>AVG ± STD</td>
+                <td>MOD20</td>
+                <td>0.863±0.012</td>
+                <td>0.864±0.011</td>
+                <td>0.864±0.010</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>CHAD</td>
+                <td>0.826±0.015</td>
+                <td>0.829±0.014</td>
+                <td>0.827±0.013</td>
+            </tr>
+        </table>
+
+        <h3>2. Comparison with State-of-the-Art Methods</h3>
+
+        <table>
+            <tr>
+                <th>Dataset</th>
+                <th>Methods</th>
+                <th>Accuracy (%)</th>
+            </tr>
+
+            <tr>
+                <td rowspan="4">MOD20</td>
+                <td>Shahid et al.</td>
+                <td>88.30</td>
+            </tr>
+
+            <tr>
+                <td>Vrskova et al.</td>
+                <td>78.21</td>
+            </tr>
+
+            <tr>
+                <td>Perera et al.</td>
+                <td>74.00</td>
+            </tr>
+
+            <tr>
+                <td><b>Proposed Method</b></td>
+                <td><b>88.90</b></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">CHAD</td>
+                <td>Zhu et al.</td>
+                <td>88.00</td>
+            </tr>
+
+            <tr>
+                <td><b>Proposed Method</b></td>
+                <td><b>88.78</b></td>
+            </tr>
+        </table>
+
+        <h3>3. Computational Complexity Assessment</h3>
+
+        <table>
+            <tr>
+                <th>Process</th>
+                <th>Time (S)</th>
+                <th>MFLOPS</th>
+            </tr>
+
+            <tr>
+                <td>Preprocessing</td>
+                <td>7.02</td>
+                <td>2.11</td>
+            </tr>
+
+            <tr>
+                <td>Multi-person Pose Estimation</td>
+                <td>22.03</td>
+                <td>91628.96</td>
+            </tr>
+
+            <tr>
+                <td>SuperPoint Extraction and Matching</td>
+                <td>10.6858</td>
+                <td>0.03</td>
+            </tr>
+
+            <tr>
+                <td>Ridge and Distance Transform</td>
+                <td>2.1577</td>
+                <td>2024.88</td>
+            </tr>
+
+            <tr>
+                <td>Dense Spatio Temporal Tracking</td>
+                <td>42.58</td>
+                <td>18500</td>
+            </tr>
+        </table>
+
+        <h3>4. Ablation Study of Proposed UAV-MultiAct</h3>
+
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>MOD20 (%)</th>
+                <th>CHAD (%)</th>
+            </tr>
+
+            <tr>
+                <td>Without Preprocessing</td>
+                <td>82.10</td>
+                <td>83.52</td>
+            </tr>
+
+            <tr>
+                <td>Without Multi-person Pose Estimation</td>
+                <td>62.57</td>
+                <td>65.22</td>
+            </tr>
+
+            <tr>
+                <td>Without SuperPoint and Matching</td>
+                <td>75.50</td>
+                <td>77.80</td>
+            </tr>
+
+            <tr>
+                <td>Without Ridge & Distance Transform</td>
+                <td>83.90</td>
+                <td>84.12</td>
+            </tr>
+
+            <tr>
+                <td>Without Spatio Temporal Tracking</td>
+                <td>78.77</td>
+                <td>75.87</td>
+            </tr>
+
+            <tr>
+                <td><b>Full Model (UAV-MultiAct)</b></td>
+                <td><b>88.90</b></td>
+                <td><b>88.78</b></td>
+            </tr>
+        </table>
+
+        <p>
+            The performance comparison is presented in Tables I to IV. From Table II, the proposed approach has an accuracy of 88.90% on MOD20, which is a slight improvement over Shahid et al. and better than other existing methods, and 88.78% on CHAD, which is better than Zhu et al. From Table III, multi person pose estimation and dense spatio temporal tracking consume the most computation time, while preprocessing, ridge extraction, and feature matching are computationally light. From Table IV, multi person pose estimation is the most important, while the overall UAV-MultiAct system performs best on both datasets.
+        </p>
+
+    </section>
+
+    <!-- DATASETS -->
+    <section>
+
+        <h2>Datasets</h2>
+
+        <ul>
+            <li>
+                <a href="https://asankagp.github.io/mod20/" target="_blank">
+                    MOD20 Dataset
+                </a>
+            </li>
+
+            <li>
+                <a href="https://github.com/TeCSAR-UNCC/CHAD" target="_blank">
+                    CHAD Dataset
+                </a>
+            </li>
+        </ul>
+
+        <p>
+            This study utilized the MOD20 dataset, containing 2,324 video clips across 20 action classes. We also used the CHAD dataset which includes 1.15 million frames across 22 anomalous behaviors and some normal classes.
+        </p>
+
+    </section>
+
+    <!-- CITATION -->
+    <section id="citation">
+
+        <h2>Citation</h2>
+
+        <p>
+            Harris Shahid, Shaheryar Najam, and Ahmad Jalal.
+            <i>
+                UAV-MultiAct: A Lightweight Fusion-based Transformer for Robust Multi-Person Action Recognition in UAV Surveillance.
+            </i>
+            KHIHTC 2026.
+        </p>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+
+        <h2>Contact</h2>
+
+        <p>
+            For questions about this work, please contact:<br>
+            <b>harrisshahid.m@gmail.com</b>
+        </p>
+
+    </section>
+
+    <footer>
+        © 2026. All rights reserved.
+    </footer>
+
+</div>
+
+</body>
+</html>
